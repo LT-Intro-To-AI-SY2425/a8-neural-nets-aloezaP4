@@ -13,7 +13,7 @@ def parse_line(line: str) -> Tuple[List[float], List[float]]:
     """
     tokens = line.split(",")
     out = int(tokens[0])
-    output = [1 if out == 1 else 0.5 if out == 2 else 1]
+    output = [0 if out == 1 else 0.5 if out == 2 else 1]
 
     inpt = [float(x) for x in tokens[1:]]
     return (inpt, output)
@@ -51,7 +51,6 @@ with open("wine_data.txt", "r") as f:
 td = normalize(training_data)
 
 nn = NeuralNet(13, 3, 1)
-nn.train(td, iters=100_000, print_interval=1000, learning_rate=0.1)
-
+nn.train(td, iters=10000, print_interval=1000, learning_rate=0.1)
 for i in nn.test_with_expected(td):
     print(f"desired: {i[1]}, actual: {i[2]}")
